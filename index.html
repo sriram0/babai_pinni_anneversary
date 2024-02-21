@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Happy Anneversary</title>
+    <style>
+        body{
+            background-color:aqua;
+        }
+        h1{
+            color:red;
+            font-size: 50px;
+        }
+    </style>
+    <link rel="icon" href="logo.png" type="images/x-icon">
+</head>
+<body>
+    <h1>Happy 8<sup>th</sup> Anneversary Babai and Pinni!</h1>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.7.0/lib/p5.js"></script>
+    <script>
+        function setup(){
+            createCanvas(1000, 500)
+        }
+        let x=250
+        let l=[-10, -3, 3, 10]
+        let anim=[0, 0]
+        let web=[]
+        let t=["8 is 2^3", "8 is the 7th deficient number", "8 is the 6th number in the Fibonacci Series"]
+        let tn=0
+        function draw(){
+            if(anim[0]==1){
+                anim[1]+=20;
+                if(anim[1]>135){
+                    anim[0]=2
+                    web.push([x-30, 360, x-30, 360, 700])
+                    tn++;
+                    if(tn>2){
+                        tn=0
+                    }
+                }
+            }else if(anim[0]==2){
+                anim[1]-=15;
+                if(anim[1]<0){
+                    anim[0]=0
+                }
+            }
+            background(0, 255, 255)
+            strokeWeight(10)
+            stroke(0)
+            for(let i=0;i<l.length;i++){
+                l[i]--;
+                line(x, 370, x-30+(i*20)+l[i], 400)
+                if(l[i]<-10){
+                    l[i]=0
+                }
+            }
+            for(let i=0;i<web.length;i++){
+                stroke(255)
+                line(...web[i])
+                web[i][0]+=5
+                web[i][1]-=2+(web[i][4]/200)
+                web[i][2]+=7
+                web[i][3]-=web[i][4]/100
+                web[i][4]-=10
+            }
+            noStroke()
+            fill(200, 50, 50)
+            rect(0, 400, 1000, 220)
+            fill(255)
+            textSize(50)
+            text(t[tn], 10, 490)
+            fill(0)
+            ellipse(x+5, 370, 40, 30)
+            push()
+            translate(x-20, 370)
+            angleMode(DEGREES)
+            rotate(anim[1])
+            ellipse(-20, 0, 60, 40)
+            pop()
+            //x++;
+        }
+        function keyTyped(){
+            if(key==" "){
+                anim[0]=1
+            }
+        }
+        function mouseClicked(){
+            anim[0]=1
+        }
+    </script>
+</body>
+</html>
